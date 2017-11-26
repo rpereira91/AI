@@ -1,0 +1,82 @@
+from city import City
+import copy
+import random
+import math
+import time
+import sys
+
+
+#the number of cities
+totalCities = 3
+#The basic map will be an array of cities
+map = []
+#size of the map
+mapSize = 250
+#An object that has the fitness level and order stored
+population = []
+fitness = []
+bestOrder = []
+popSize = 5
+fittest = 10**10
+
+#randomly populates the map with the x and y locations
+def CreateMap():
+    order = [i for i in range(totalCities)]
+    for n in range(totalCities):
+        temp = City(random.randint(1,mapSize),random.randint(1,mapSize))
+        map.append(temp)
+    for x in range (0, popSize):
+        population.append([])
+        random.shuffle(order)
+        population[x] = list(order)
+
+#find the distance between 2 points
+def CalculateDistance(point1, point2):
+    return math.hypot(point2.i - point1.i, point2.j - point1.j)
+#get the total distanc
+def CalculateTotalDistance(order):
+    currentDistance = 0
+    for ord in range(0, totalCities-1):
+        currentDistance += CalculateDistance(map[order[ord]],map[order[ord+1]])
+    return currentDistance
+
+def getFittest():
+    bo = []
+    global fittest
+    for i in range (popSize):
+        fit = CalculateTotalDistance(population[i])
+        if (fit < fittest):
+            fittest = fit
+            bo = list(population[i])
+        fitness.append(1/(fit + 1))
+    return bo
+#map the probablity in terms of percentage
+def normalizeFit():
+    totalFit = 0
+    for f in fitness:
+        totalFit += f
+    for f in range(popSize):
+        fitness[f] = fitness[f]/totalFit
+
+#swaps two elements of an array  
+def Swap(x, i, j):
+    temp = x[i]   
+    x[i] = x[j]
+    x[j] = temp
+
+#main logic behind solving the map
+def SolveMap():
+    CreateMap()
+    bestOrder = getFittest()
+    normalizeFit()
+    print (fitness)
+
+    
+
+
+
+
+start = time.time() 
+SolveMap()
+end = time.time()
+print("It took: %.5f seconds to complete" %(end-start))
