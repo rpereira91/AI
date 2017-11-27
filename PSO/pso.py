@@ -1,16 +1,17 @@
 from particle import Particle
-import random
-SpaceSize = 10000
-SwarmSize = 30
+ 
+SwarmSize = 3
 Swarm = []
-def InitilizeSwarm():
+def InitilizeSwarm(d):
     for i in range(SwarmSize):
-        p = Particle(random.randint(0,SpaceSize), random.randint(0,SpaceSize),0,0)
+        p = Particle(d)
         Swarm.append(p)
 def DisplaySwarm():
     for i in range(SwarmSize):
-        print("(" + str(Swarm[i].getX()) + "," + str(Swarm[i].getY())+")")
-    
+        print("Particle: " + str(Swarm[i].getX()) + "Best Fit: "+str(Swarm[i].getBestFit()))
 
-InitilizeSwarm()
+
+
+
+InitilizeSwarm(3)
 DisplaySwarm()
