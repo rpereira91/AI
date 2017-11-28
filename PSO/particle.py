@@ -12,18 +12,10 @@ class Particle:
         self.d = d
         self.x = [random.uniform(-5.12,5.12) for i in range(self.d)]
         self.f = self.SolveRast()
+        self.v = [0.0 for i in range(self.d)]
         self.bestFit = self.f
-    #Getter defs for the I and J location variables 
-    def getX(self):
-        return self.x
-    def getFit(self):
-        return self.f
-    def getV(self):
-        return self.v
-    def getBestFit(self):
-        return self.bestFit
-    def setX(self,x):
-        self.x = x[:]
+        self.bestX = self.x[:]
+    
     #gets the fitness of the x values
     def SolveRast(self):
         fit = 10*self.d
@@ -35,6 +27,7 @@ class Particle:
         fit = self.SolveRast()
         if fit < self.bestFit:
             self.bestFit = fit
+            self.bestX = self.x[:]
         self.f = fit
 
         
