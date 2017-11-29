@@ -15,16 +15,15 @@ class PSO:
         self.epoch = epoch
 
 
-    def SolvePso(self): 
+    def SolvePso(self,filename): 
         self.InitilizeSwarm()
         #the best fit is a particle
         GlobalFit = Particle(self.d)
         GlobalFit.bestFit = 10000
         #set the best fit to a high number
         for i in range(self.epoch):
-            print("\nPass by #: " + str(i+1))
             #DisplaySwarm() 
-            print("Global Best: " + str(GlobalFit.bestFit))
+            print(GlobalFit.bestFit)
             self.UpdateVelocity(self.d,self.w,self.c1,self.c2,GlobalFit)
             GlobalFit = self.GetBestFit(GlobalFit)
 
