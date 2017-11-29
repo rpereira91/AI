@@ -12,6 +12,7 @@ class Particle:
         self.d = d
         self.x = [random.uniform(-5.12,5.12) for i in range(self.d)]
         self.f = self.SolveRast()
+        print(self.f)
         self.v = [0.0 for i in range(self.d)]
         self.bestFit = self.f
         self.bestX = self.x[:]
@@ -24,10 +25,9 @@ class Particle:
         return fit
     #Update the best fitness of the particle
     def UpdateFitness(self):
-        fit = self.SolveRast()
-        if fit < self.bestFit:
-            self.bestFit = fit
+        self.f = self.SolveRast()
+        if self.f < self.bestFit:
+            self.bestFit = self.f
             self.bestX = self.x[:]
-        self.f = fit
 
         

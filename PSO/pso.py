@@ -23,8 +23,7 @@ class PSO:
         #set the best fit to a high number
         for i in range(self.epoch):
             print("\nPass by #: " + str(i+1))
-            #DisplaySwarm()
-            
+            #DisplaySwarm() 
             print("Global Best: " + str(GlobalFit.bestFit))
             self.UpdateVelocity(self.d,self.w,self.c1,self.c2,GlobalFit)
             GlobalFit = self.GetBestFit(GlobalFit)
@@ -33,20 +32,19 @@ class PSO:
         for i in range(self.SwarmSize):
             p = Particle(self.d)
             self.Swarm.append(p)
+    #this updates the velocity for each particle
     def UpdateVelocity(self,d,w,c1,c2,gb):
-        for i in range(self.SwarmSize):        
+        for i in range(self.SwarmSize): 
+            #each x value within the particle is updated       
             for j in range(d):
+                #random doubles between 0 and 1
                 r1 = random.random()  
                 r2 = random.random()
                 #calculate the new velocity 
                 self.Swarm[i].v[j] = ((w*self.Swarm[i].v[j])+(c1*r1*(self.Swarm[i].bestX[j]-self.Swarm[i].x[j]))+(c2*r2*(gb.x[j] - self.Swarm[i].x[j]))) 
-                #if the velocity goes past the bounds of the current x min and max, it will loop back around
-                if self.Swarm[i].v[j] < -5.12:
-                    self.Swarm[i].v[j] = 5.12
-                elif self.Swarm[i].v[j] > 5.12:
-                    self.Swarm[i].v[j] = -5.12
-            for j in range(d):
+            #Update the x values
                 self.Swarm[i].x[j] += self.Swarm[i].v[j]
+            #get the new fitness
             self.Swarm[i].UpdateFitness()
     #get the best fitness for the entire swarm
     def GetBestFit(self,gb):
