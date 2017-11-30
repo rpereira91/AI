@@ -12,7 +12,6 @@ class Particle:
         self.d = d
         self.x = [random.uniform(-5.12,5.12) for i in range(self.d)]
         self.f = self.SolveRast()
-        print(self.f)
         self.v = [0.0 for i in range(self.d)]
         self.bestFit = self.f
         self.bestX = self.x[:]
@@ -21,7 +20,11 @@ class Particle:
     def SolveRast(self):
         fit = 10*self.d
         for i in range(1,self.d):
-            fit += self.x[i]**2 - (10*math.cos(2*math.pi*self.x[i]))
+            try:
+                fit += self.x[i]**2 - (10*math.cos(2*math.pi*self.x[i]))
+            except OverflowError:
+                print("Fitness too high")
+                break
         return fit
     #Update the best fitness of the particle
     def UpdateFitness(self):

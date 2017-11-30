@@ -15,17 +15,18 @@ class PSO:
         self.epoch = epoch
 
 
-    def SolvePso(self,filename): 
+    def SolvePso(self,fn): 
         self.InitilizeSwarm()
         #the best fit is a particle
         GlobalFit = Particle(self.d)
         GlobalFit.bestFit = 10000
         #set the best fit to a high number
+        f = open(fn,'w')
         for i in range(self.epoch):
-            #DisplaySwarm() 
-            print(GlobalFit.bestFit)
             self.UpdateVelocity(self.d,self.w,self.c1,self.c2,GlobalFit)
             GlobalFit = self.GetBestFit(GlobalFit)
+            f.write(str(GlobalFit.bestFit)+"\n")
+        f.close()
 
     def InitilizeSwarm(self):
         for i in range(self.SwarmSize):
@@ -41,6 +42,10 @@ class PSO:
                 r2 = random.random()
                 #calculate the new velocity 
                 self.Swarm[i].v[j] = ((w*self.Swarm[i].v[j])+(c1*r1*(self.Swarm[i].bestX[j]-self.Swarm[i].x[j]))+(c2*r2*(gb.x[j] - self.Swarm[i].x[j]))) 
+                # if self.Swarm[i].v[j] > 5.12:
+                #     self.Swarm[i].v[j] = -5.12
+                # elif self.Swarm[i].v[j] < -5.12:
+                #     self.Swarm[i].v[j] = 5.12
             #Update the x values
                 self.Swarm[i].x[j] += self.Swarm[i].v[j]
             #get the new fitness
