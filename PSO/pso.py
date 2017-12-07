@@ -1,3 +1,8 @@
+#############################
+# Ralph Pereira             #
+# COSC3P71 Assignment 3     #
+# Basic PSO                 #
+#############################
 from particle import Particle
 import random
 import math
@@ -42,14 +47,15 @@ class PSO:
                 r2 = random.random()
                 #calculate the new velocity 
                 self.Swarm[i].v[j] = ((w*self.Swarm[i].v[j])+(c1*r1*(self.Swarm[i].bestX[j]-self.Swarm[i].x[j]))+(c2*r2*(gb.x[j] - self.Swarm[i].x[j]))) 
-                # if self.Swarm[i].v[j] > 5.12:
-                #     self.Swarm[i].v[j] = -5.12
-                # elif self.Swarm[i].v[j] < -5.12:
-                #     self.Swarm[i].v[j] = 5.12
-            #Update the x values
+                #Update the x values
                 self.Swarm[i].x[j] += self.Swarm[i].v[j]
-            #get the new fitness
-            self.Swarm[i].UpdateFitness()
+                #Clamping the x values doesn't seem to work but here's were I would try to clamp
+                # if self.Swarm[i].x[j] > 5.12:
+                #     self.Swarm[i].x[j] = 5.12
+                # elif self.Swarm[i].x[j] < -5.12:
+                #     self.Swarm[i].x[j] = -5.12
+                #get the new fitness for the current particle
+                self.Swarm[i].UpdateFitness()
     #get the best fitness for the entire swarm
     def GetBestFit(self,gb):
         for i in range(self.SwarmSize):

@@ -1,7 +1,8 @@
-# Ralph Pereira
-# COSC3P71 Assignment 3
-# Basic PSO
-###################################################################
+#############################
+# Ralph Pereira             #
+# COSC3P71 Assignment 3     #
+# Basic PSO                 #
+#############################
 
 #Particle Object
 import random
@@ -23,7 +24,6 @@ class Particle:
             try:
                 fit += self.x[i]**2 - (10*math.cos(2*math.pi*self.x[i]))
             except OverflowError:
-                print("Fitness too high")
                 break
         return fit
     #Update the best fitness of the particle
