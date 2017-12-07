@@ -23,7 +23,10 @@ class Particle:
         for i in range(1,self.d):
             try:
                 fit += self.x[i]**2 - (10*math.cos(2*math.pi*self.x[i]))
+            #Catches for the fitness, if it goes too high Math errors occour
             except OverflowError:
+                break
+            except ValueError:
                 break
         return fit
     #Update the best fitness of the particle
