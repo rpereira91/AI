@@ -11,12 +11,16 @@ import math
 #create a swarm with dimension D
 class PSO:
     def __init__(self,d,w,c1,c2,ss,epoch):
-        self.d = d
-        self.w = w
+        self.d = d #set the dimensions
+        #set the constants
+        self.w = w 
         self.c1 = c1
         self.c2 = c2
+        #initilize the swarm
         self.Swarm = []
+        #set the swarm size
         self.SwarmSize = ss
+        #set the number of iterations 
         self.epoch = epoch
 
 
@@ -62,10 +66,14 @@ class PSO:
             if self.Swarm[i].bestFit < gb.bestFit:
                 gb = self.Swarm[i]
         return gb
-    #prints out the entire swarm
-    def DisplaySwarm(self):
-        for i in range(self.SwarmSize):
-            print("Particle: " + str(self.Swarm[i].x) + "Best X: "+str(self.Swarm[i].bestX))
-
-
-
+    def RandomSearch(self,fn):
+        #the best fit is a particle
+        GlobalFit = Particle(self.d)
+        GlobalFit.bestFit = 10000
+        #set the best fit to a high number
+        f = open(fn,'w')
+        for i in range(self.epoch):
+            self.InitilizeSwarm()
+            GlobalFit = self.GetBestFit(GlobalFit)
+            f.write(str(GlobalFit.bestFit)+"\n")
+        f.close()
